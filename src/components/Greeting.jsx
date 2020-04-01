@@ -1,13 +1,15 @@
 import React from 'react' 
+import AutosizeInput from 'react-input-autosize';
 
 class Greeting extends React.Component { 
   constructor() { 
     super() 
     this.state = { 
       firstName: "",
-      lastName: ""
+      editMode: true
     }
     this.handleChange = this.handleChange.bind(this)
+    this.submitHandler = this.submitHandler.bind(this)
   }
   
   handleChange(event){ 
@@ -18,22 +20,17 @@ class Greeting extends React.Component {
   }
 
   submitHandler(e) { 
-    e.preventDefault(); 
+    e.preventDefault();
+    this.setState(prevState => ({ editMode: !prevState.editMode })) 
+    if(this.state.editMode) { 
+      e.target.focus() 
+    }
   }
-
-  //var with show input set to false 
-  //in html show input if ture
-  //when start app input=true, then false
 
   render() {
     const hours = new Date().getHours()
     let timeOfDay
-    const styles = {
-     fontSize: 30
-    }
   
-  //should I move this in the clock component
-  //should I move this block of code in componentDidUpdate? 
     if (hours < 12) {
       timeOfDay = "morning"
     } else if (hours >= 12 && hours < 17) {
@@ -42,26 +39,32 @@ class Greeting extends React.Component {
       timeOfDay = "evening"
     }
 
-
+    const firstNameInput = () => { 
+      if (this.state.editMode) {
+      return (
+        <form className="greeting__form" onSubmit={this.submitHandler}> 
+        <AutosizeInput  
+        className="greeting__input"
+        type="text" 
+        value={this.state.firstName} 
+        name="firstName"
+        onChange={this.handleChange}
+        autoComplete='off'
+        // style={ { width: this.state.firstName.length }}
+        />
+        </form>
+      ) } else { 
+        return ( 
+          <span onClick={this.submitHandler}>{this.state.firstName}</span>
+          )
+        }
+    }
 
     return (
-      <div>
-        <h1 style={styles}>Good {timeOfDay}, </h1>
-        <form onSubmit={this.submitHandler}> 
-          <input 
-            type="text" 
-            value={this.state.firstName} 
-            name="firstName"
-            onChange={this.handleChange}
-          />
-          {/* <br /> 
-          <input 
-            type="text" 
-            value={this.state.lastName} 
-            name="lastName"
-            onChange={this.handleChange}
-          /> */}
-        </form>
+      <div className="greeting">
+        <span>Good {timeOfDay}, </span>
+        {firstNameInput()}
+        <span>.</span>
       </div>
       
     )

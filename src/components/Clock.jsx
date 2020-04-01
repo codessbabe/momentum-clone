@@ -1,11 +1,10 @@
 import React from 'react' 
 
-class Clock01 extends React.Component { 
+class Clock extends React.Component { 
   constructor(){ 
     super()
     const time = new Date()
     this.state = { 
-      
       hours: time.getHours(),
       minutes: time.getMinutes()
     }
@@ -26,8 +25,7 @@ class Clock01 extends React.Component {
 
   render(){ 
     return( 
-      <div> 
-        <h2>Clock</h2>
+      <div className="clock"> 
         { 
         this.state.hours === 0 ? 12 : (this.state.hours > 12) ? this.state.hours - 12 : this.state.hours 
         }:{ 
@@ -38,4 +36,4 @@ class Clock01 extends React.Component {
   }
 }
 
-export default Clock01 
+export default Clock 

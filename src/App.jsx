@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
 import './style/style.css'
+import './style/clock.css'
+import './style/greeting.css'
+import './style/main-focus.css' 
+import './style/randomQuote.css'
 
-import Clock01 from "./components/Clock01"
-import Clock02 from './components/Clock02'
+import Clock from "./components/Clock"
 import Greeting from "./components/Greeting"
-import InputTest from './components/InputTest'
-import StarwarsAPI from './components/StarwarsAPI'
-import TodoList from './components/TodoList'
+import MainFocus from "./components/MainFocus"
+import RandomQuote from './components/RandomQuote'
+
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Clock01 />
-        <Clock02 />
+        <Clock />
         <Greeting />
-        <InputTest />
-        {/* <StarwarsAPI /> */}
-        {/* <TodoList />   */}
+        <MainFocus />
+        <RandomQuote />
       </div>
     );
   }
